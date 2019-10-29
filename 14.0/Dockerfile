@@ -4,7 +4,6 @@ LABEL maintainer="DevOps Team"
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH $PATH:/opt/mssql/bin:/opt/mssql-tools/bin
 ENV MSSQL_SERVER_VERSION 14.0.3238.1-19
-ENV MSSQL_CLI_VERSION 0.15.0-1
 
 RUN set -x \
     && apt-get update && apt-get install -y --no-install-recommends \
@@ -27,7 +26,7 @@ RUN set -x \
     && apt-get update \
     && ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
         mssql-server=$MSSQL_SERVER_VERSION \
-        mssql-cli=$MSSQL_CLI_VERSION \
+        mssql-tools \
     && echo 'mssql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
     && echo "mssql soft stack 8192" >> /etc/security/limits.d/99-mssql-server.conf \
     && mkdir /docker-entrypoint-initdb.d \
