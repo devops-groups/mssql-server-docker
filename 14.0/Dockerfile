@@ -4,6 +4,7 @@ LABEL maintainer="DevOps Team"
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH $PATH:/opt/mssql/bin:/opt/mssql-tools/bin
 ENV MSSQL_SERVER_VERSION 14.0.3238.1-19
+ENV MSSQL_VOLUME_PATH /var/opt/mssql
 
 RUN set -x \
     && apt-get update && apt-get install -y --no-install-recommends \
@@ -30,14 +31,14 @@ RUN set -x \
     && echo 'mssql ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
     && echo "mssql soft stack 8192" >> /etc/security/limits.d/99-mssql-server.conf \
     && mkdir /docker-entrypoint-initdb.d \
-    && chown -R mssql:mssql /var/opt/mssql \
+    && chown -R mssql:mssql $MSSQL_VOLUME_PATH \
     && rm -rf /var/lib/apt/lists/*
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 
-VOLUME /var/opt/mssql
+VOLUME $MSSQL_VOLUME_PATH
 EXPOSE 1433
 USER mssql
 ENTRYPOINT ["docker-entrypoint.sh"]
