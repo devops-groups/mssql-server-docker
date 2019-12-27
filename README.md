@@ -2,7 +2,8 @@
 
 ## Supported tags and respective Dockerfile links
 
-* [14.0](https://github.com/devops-groups/mssql-server-docker/blob/master/14.0/Dockerfile), [latest](https://github.com/devops-groups/mssql-server-docker/blob/master/14.0/Dockerfile),
+* [14.0](https://github.com/devops-groups/mssql-server-docker/blob/14.0/Dockerfile)
+* [latest](https://github.com/devops-groups/mssql-server-docker/blob/master/Dockerfile)
 
 ## How to use this image
 
@@ -14,6 +15,8 @@ $ docker run -d \
 -p 1433:1433 \
 --name msserver devopsgroups/mssql-server-linux
 ```
+
+https://hub.docker.com/r/devopsgroups/mssql-server-linux
 
 ### Persist your data
 
